@@ -19,11 +19,8 @@
   const btn = document.getElementById("btn");
 
 btn.addEventListener('click', () => {
-    if(contraseña1.value==contraseña2.value){
-        
-        contraseña2.classList.add('is-valid');
-    } else {
-        contraseña2.classList.add('is-invalid');
+    if(contraseña1.value!=contraseña2.value){
+      contraseña2.classList.add('is-invalid');
     }
   } 
 )
