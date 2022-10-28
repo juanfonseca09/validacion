@@ -1,28 +1,11 @@
-// (function () {
-// 	"use strict";
-// 	let forms = document.querySelectorAll(".needs-validation");
-// 	Array.prototype.slice.call(forms).forEach(function (form) {
-// 		form.addEventListener(
-// 			"submit",
-// 			function (event) {
-// 				if (!form.checkValidity()) {
-// 					event.preventDefault();
-// 					event.stopPropagation();
-// 				}
-
-// 				form.classList.add("was-validated");
-// 			},
-// 			false
-// 		);
-// 	});
-// })();
-
 const contraseña1 = document.getElementById("password1");
 const contraseña2 = document.getElementById("password2");
 const nombre = document.getElementById("nombre");
 const apellido = document.getElementById("apellido");
 const mail = document.getElementById("email");
-const invalidCheck = document.getElementById("invalidCheck")
+const invalidCheck = document.getElementById("invalidCheck");
+const inputList = document.getElementsByTagName("input");
+let btnOk = false;
 
 const caracterMail = (e) => {
 	return /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
@@ -43,9 +26,8 @@ function validar(el, tipo = "error") {
 		inp.classList.add("is-valid");
 	}
 }
-
-btn.addEventListener("click", () => {
-// convertir esto en una función para poder callearla dentro de in addeventlistner("input", ~~validaciones)
+function validarForm() {
+	// convertir esto en una función para poder callearla dentro de in addeventlistner("input", ~~validaciones)
 	if (contraseña1.value.trim() != "" && contraseña1.value.length >= 6) {
 		validar(contraseña1, "c");
 	} else {
@@ -71,9 +53,27 @@ btn.addEventListener("click", () => {
 	} else {
 		validar(mail);
 	}
-	if (invalidCheck.checked){
-		validar(invalidCheck, "c")
+	if (invalidCheck.checked) {
+		document.getElementById("linkModal").classList.remove("link-danger");
+		document.getElementById("termError").classList.remove("d-inline");
+		validar(invalidCheck, "c");
 	} else {
-		validar(invalidCheck)
+		document.getElementById("termError").classList.add("d-inline");
+		document.getElementById("linkModal").classList.add("link-danger");
+		validar(invalidCheck);
 	}
+}
+
+for (const input of inputList) {
+	input.addEventListener("input", () => {
+		if (btnOk) {
+			validarForm();
+		}
+	});
+}
+
+btn.addEventListener("click", (e) => {
+	e.preventDefault();
+	validarForm();
+	btnOk = true;
 });
