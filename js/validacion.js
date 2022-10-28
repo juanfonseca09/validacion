@@ -22,6 +22,8 @@ const contraseña2 = document.getElementById("password2");
 const nombre = document.getElementById("nombre");
 const apellido = document.getElementById("apellido");
 const mail = document.getElementById("email");
+const invalidCheck = document.getElementById("invalidCheck")
+
 const caracterMail = (e) => {
 	return /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(
 		e
@@ -43,6 +45,7 @@ function validar(el, tipo = "error") {
 }
 
 btn.addEventListener("click", () => {
+// convertir esto en una función para poder callearla dentro de in addeventlistner("input", ~~validaciones)
 	if (contraseña1.value.trim() != "" && contraseña1.value.length >= 6) {
 		validar(contraseña1, "c");
 	} else {
@@ -53,7 +56,6 @@ btn.addEventListener("click", () => {
 	} else {
 		validar(contraseña2);
 	}
-
 	if (nombre.value.trim() != "") {
 		validar(nombre, "c");
 	} else {
@@ -68,5 +70,10 @@ btn.addEventListener("click", () => {
 		validar(mail, "c");
 	} else {
 		validar(mail);
+	}
+	if (invalidCheck.checked){
+		validar(invalidCheck, "c")
+	} else {
+		validar(invalidCheck)
 	}
 });
